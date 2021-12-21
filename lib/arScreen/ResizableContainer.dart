@@ -7,6 +7,8 @@ class ResizableContainer extends StatelessWidget {
       required this.width,
       required this.left,
       required this.top,
+      required this.scaleHeight,
+      required this.scaleWidth,
       required this.child})
       : super(key: key);
 
@@ -14,8 +16,9 @@ class ResizableContainer extends StatelessWidget {
   final double width;
   final double left;
   final double top;
-
   final Widget child;
+  final double scaleWidth;
+  final double scaleHeight;
 
   Matrix4 scaleXYZTransform({
     double scaleX = 1.00,
@@ -33,11 +36,11 @@ class ResizableContainer extends StatelessWidget {
         top: top / 100 * size.height,
         left: left / 100 * size.width,
         child: Transform(
-          transform:
-              scaleXYZTransform(scaleX: width / 100, scaleY: height / 100),
+          transform: scaleXYZTransform(
+              scaleX: scaleWidth / 100, scaleY: scaleHeight / 100),
           child: Container(
-              width: size.width,
-              height: size.height,
+              width: size.width * width / 100,
+              height: size.height * height / 100,
               decoration:
                   BoxDecoration(border: Border.all(color: Colors.green)),
               child: child),
